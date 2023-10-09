@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.models import Group
-
+from django.contrib import messages
 from django.views.generic import FormView
 
 from .forms import RecordForm
@@ -15,9 +15,9 @@ def index(request):
     if request.method == 'POST':
         form = RecordForm(request.POST)
         if form.is_valid():
+            messages.success(request, 'Запись добавлена')
             form.save()
-            # После успешного сохранения можно выполнить какие-либо дополнительные действия, например, перенаправить на другую страницу
-            return redirect('success_url')  # Замените 'success_url' на URL, куда вы хотите перенаправить после успешного сохранения
+            
 
     else:
         form = RecordForm()
