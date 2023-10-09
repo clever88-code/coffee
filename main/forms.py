@@ -2,7 +2,7 @@ from django import forms
 from django.core.exceptions import ValidationError
 from requests import request
 
-from main.models import Record
+from .models import Record
 
 
 

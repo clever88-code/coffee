@@ -9,10 +9,17 @@ from django.contrib.auth.models import Group
 
 from django.views.generic import FormView
 
-
+from .forms import RecordForm
 
 def index(request):
+    if request.method == 'POST':
+        form = RecordForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # После успешного сохранения можно выполнить какие-либо дополнительные действия, например, перенаправить на другую страницу
+            return redirect('success_url')  # Замените 'success_url' на URL, куда вы хотите перенаправить после успешного сохранения
 
-    return render(request, 'main/index.html')
+    else:
+        form = RecordForm()
 
-
+    return render(request, 'main/index.html', {'form': form})
